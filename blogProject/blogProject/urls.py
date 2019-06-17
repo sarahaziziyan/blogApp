@@ -1,7 +1,8 @@
-from django.conf.urls import include, url
+from django.conf.urls import include
 from django.contrib import admin
+from django.urls import path
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'blogApp/', include('blogApp.urls', namespace='blogApp', app_name='blogApp')),
+    path(r'^admin/', admin.site.urls),
+    path(r'blogApp/', include(('blogApp.urls', 'blogApp'),namespace='blogApp'))
 ]
