@@ -1,13 +1,18 @@
 from django.db import models
-from django.db.models import PROTECT
+from django.db.models import *
 from django.utils import timezone
 from django.contrib.auth.models import User
+from django.urls import reverse
+
+# Custom Manager
 
 
 class PublishedManager(models.Manager):
     def get_queryset(self):
         return super(PublishedManager,self).get_queryset().filter(status='published')
 
+
+# Our Post Model
 
 class Post(models.Model):
     STATUS_CHOICES = (
@@ -34,3 +39,6 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('blogApp:post_detail_view', args=[self.publish.year, self.publish.strftime('%m'),self.publish.strftime('%d'),self.slug])
